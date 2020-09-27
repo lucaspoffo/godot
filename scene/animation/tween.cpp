@@ -1356,9 +1356,13 @@ void Tween::interpolate_property(Object *p_object, NodePath p_property, Variant 
 	p_property = p_property.get_as_property_path();
 
 	// If no initial value given, grab the initial value from the object
-	// TODO: Is this documented? This is very useful and removes a lot of clutter from tweens!
 	if (p_initial_val.get_type() == Variant::NIL) {
 		p_initial_val = p_object->get_indexed(p_property.get_subnames());
+	}
+
+	// If no final value given, grab the initial value from the object
+	if (p_final_val.get_type() == Variant::NIL) {
+		p_final_val = p_object->get_indexed(p_property.get_subnames());
 	}
 
 	// Convert any integers into REALs as they are better for interpolation
@@ -1520,7 +1524,6 @@ void Tween::follow_property(Object *p_object, NodePath p_property, Variant p_ini
 	p_target_property = p_target_property.get_as_property_path();
 
 	// If no initial value is given, grab it from the source object
-	// TODO: Is this documented? It's really helpful for decluttering tweens
 	if (p_initial_val.get_type() == Variant::NIL) {
 		p_initial_val = p_object->get_indexed(p_property.get_subnames());
 	}
